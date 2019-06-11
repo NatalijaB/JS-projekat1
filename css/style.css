@@ -1,0 +1,74 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    background: lightseagreen;
+    height: 100vh;
+    display: flex;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+h1,p{
+    text-align: center;
+    color: white;
+    margin: auto;
+    padding: 5px;
+}  
+.container{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+#container1{
+    margin:auto;
+    display: flex;
+    flex-wrap: wrap;
+    width: 500px;
+    height: 500px;
+    perspective: 1000px;
+}
+.kartica {
+    position: relative;
+    width: calc(25% - 10px);
+    height: calc(25% - 10px);
+    margin: 5px;
+    transform: scale(1);
+    transform-style: preserve-3d;
+    transition: transform .5s;
+}
+.kartica:active, button:active{
+    transform: scale(.97);
+    transition: transfrom .2s;
+}
+.kartica.flip{
+    transform: rotateY(180deg);
+}
+.napred, .nazad{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    backface-visibility: hidden;
+}
+.nazad{
+    transform: rotateY(180deg);
+}
+button{
+    height: 30px;
+    width: 490px;
+    background: white;
+    color: rgba(33, 101, 189, 0.863);
+    border:none;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-top: 10px;
+    font-size: 1.5em;
+    font-weight: 700;
+}
+p{
+    font-weight: 700px;
+    font-size: 1.4em;
+    margin: 0;
+    padding: 0;
+}
