@@ -4,12 +4,12 @@
     padding: 0;
 }
 body{
-    background: lightseagreen;
+    background-image: linear-gradient(to right top, #a8bdde, #97c2e6, #82c8eb, #69ceec, #4dd3e8);
     height: 100vh;
     display: flex;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-h1,p{
+h1, .obicnoP{
     text-align: center;
     color: white;
     margin: auto;
@@ -54,7 +54,7 @@ h1,p{
 .nazad{
     transform: rotateY(180deg);
 }
-button{
+#newgame{
     height: 30px;
     width: 490px;
     background: white;
@@ -66,9 +66,45 @@ button{
     font-size: 1.5em;
     font-weight: 700;
 }
-p{
+.obicnoP{
     font-weight: 700px;
     font-size: 1.4em;
     margin: 0;
     padding: 0;
+}
+
+#modal{
+    position: fixed;
+    z-index: 1;
+    left:0;
+    top:0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0, 0.6);
+    display: flex;
+    flex-wrap: wrap;
+}
+.modal-content{
+    background-color: darkgray;
+    color: white;
+    margin: 15% auto;
+    padding: 20px;
+    width: 40%;
+    height: 15%;
+    box-shadow: 0 5px 8px 0 rgba(0,0,0, 0.2), 0 7px 20px 0 rgba(0,0,0, 0.17);
+    font-size: 1.1em;
+    font-weight: 600;
+    border-radius: 5px;
+}
+#modalBtn {
+    background-image: linear-gradient(to right top, #a8bdde, #97c2e6, #82c8eb, #69ceec, #4dd3e8);
+    color: white;
+    padding: 10px 20px;
+    border: 0;
+    float: right;
+    margin-top: 8px;
+    font-weight: 700;
+    font-size: 1.1em;
+    border-radius: 5%;
 }

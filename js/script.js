@@ -5,42 +5,50 @@ let prvaKartica;
 let drugaKartica;
 let brojPoteza = document.querySelector('span');
 let brojac = 0;
-let dugme = document.querySelector('button');
+let brojacZaPar = 0;
+let dugme = document.querySelector('#modalBtn');
 let timerDisplay = document.querySelector('#timer');
-let countdown;
+let odbrojavanje;
+let modal = document.querySelector('#modal');
+let pOfModal = document.querySelector('#pOfModal');
 
 
 
-function timer(seconds){
-    clearInterval(countdown);
+
+
+// timer
+
+function timer(seconds) {
+    clearInterval(odbrojavanje);
     const now = Date.now();
     const then = now + seconds * 1000;
-    displayTimeLeft(seconds);
+    preostaloVreme(seconds);
 
-    countdown = setInterval(() => {
-        const secondsLeft = Math.round((then - Date.now())/1000);
-        if(secondsLeft <0){
-            clearInterval(countdown);
-            return;
+    odbrojavanje = setInterval(() => {
+        const sekunde = Math.round((then - Date.now()) / 1000);
+        if (sekunde <= 0) {
+            krajIgre();
         }
-        displayTimeLeft(secondsLeft)
+        preostaloVreme(sekunde);
     }, 1000);
 
 }
 
-function displayTimeLeft(seconds){
-    const minutes = Math.floor(seconds /60);
-    const remainingSeconds = seconds%60;
-    const display = `0${minutes}:${remainingSeconds < 10 ? '0' : ""}${remainingSeconds}`;
+function preostaloVreme(seconds) {
+    const min = Math.floor(seconds / 60);
+    const preostaleSek = seconds % 60;
+    const display = `0${min}:${preostaleSek < 10 ? '0' : ""}${preostaleSek}`;
     timerDisplay.textContent = "Time Remaining: " + display;
 }
 
 
+// okretanje kartica
+
 function flipCard() {
     if (blokTabla) return;
     if (this === prvaKartica) return;
-
     this.classList.add('flip');
+
     // prvi klik
     if (!kliknutaKartica) {
         kliknutaKartica = true;
@@ -48,22 +56,35 @@ function flipCard() {
         return;
     }
     // drugi klik
-    drugaKartica = this; 
+    drugaKartica = this;
     jesuliPar();
 
 }
+
+// matching
 
 function jesuliPar() {
     let jesuPar = prvaKartica.dataset.framework === drugaKartica.dataset.framework;
     jesuPar ? ostaviKartice() : vratiKartice();
 }
 
+// za par
+
 function ostaviKartice() {
     prvaKartica.removeEventListener('click', flipCard);
     drugaKartica.removeEventListener('click', flipCard);
-
+    brojacZaPar++;
     resetuj();
+
+    if (brojacZaPar == 8) {
+        setTimeout(()=>{
+            krajIgre();
+        },1000);
+
+    }
 }
+
+// za nepar
 
 function vratiKartice() {
     blokTabla = true;
@@ -74,26 +95,45 @@ function vratiKartice() {
         resetuj();
     }, 1500);
 }
+
+// resetuje kartice
 function resetuj() {
     [kliknutaKartica, blokTabla] = [false, false];
     [prvaKartica, drugaKartica] = [null, null];
     brojac++;
-    brojPoteza.textContent =brojac;
+    brojPoteza.textContent = brojac;
 }
-(function mesanje() {
+
+// mesanje kartica
+function mesanje() {
     kartice.forEach(kartica => {
         let randomPos = Math.floor(Math.random() * 12);
         kartica.style.order = randomPos;
     });
-})();
-function novaIgra(){
-    timer(300);
+};
+
+
+// novaigra
+function novaIgra() {
+    modal.style.display = 'none';
+    timer(180);
     brojac = 0;
     brojPoteza.textContent = brojac;
-    kartice.forEach(kartica=>{
-    kartica.classList.remove('flip');
+    brojacZaPar = 0;
+    kartice.forEach(kartica => {
+        kartica.classList.remove('flip');
     });
-    mesanje;
+    mesanje();
+}
+
+
+//  kraj igre
+function krajIgre() {
+    clearInterval(odbrojavanje);
+    modal.style.display = 'block';
+    setTimeout(() => {
+        location.reload();
+    }, 2000);
 }
 
 kartice.forEach(kartica => kartica.addEventListener('click', flipCard));
