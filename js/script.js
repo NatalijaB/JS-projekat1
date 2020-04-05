@@ -15,7 +15,6 @@ let pOfModal = document.querySelector('#pOfModal');
 
 
 
-
 // timer
 
 function timer(seconds) {
